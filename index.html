@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWA Premium Player</title>
+    <!-- Modern HLS Player Libraries -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/hls-video-element@1.0/+esm"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/player.style/sutro/+esm"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        media-theme-sutro {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            media-theme-sutro {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <media-theme-sutro>
+        <hls-video id="player" slot="media" playsinline crossorigin="anonymous" autoplay></hls-video>
+    </media-theme-sutro>
+
+    <script>
+        // URL पैरामीटर निकालें (?url=...)
+        const params = new URLSearchParams(window.location.search);
+        // "url" या "link" दोनों को सपोर्ट करेगा
+        const videoUrl = params.get("url") || params.get("link");
+
+        if (videoUrl) {
+            const player = document.getElementById("player");
+            player.src = videoUrl;
+        } else {
+            document.body.innerHTML = '<h2 style="color:white; font-family:sans-serif;">Error: No Video URL Found</h2>';
+        }
+    </script>
+</body>
+</html>
